@@ -127,7 +127,7 @@
   import { identify, Dialect } from 'sql-query-identifier'
 
   import { splitQueries, extractParams } from '../lib/db/sql_tools'
-  import { sqlMonacoDotSuggestion, sqlMonacoSuggestion } from '../lib/monaco-sql-suggestion'
+  import { sqlMonacoDotSuggestion, sqlMonacoSuggestion } from '../lib/monaco-sql-suggestions'
 
   //@ts-ignore
   import ProgressBar from './editor/ProgressBar'
