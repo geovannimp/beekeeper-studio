@@ -493,6 +493,7 @@
     }
 
     editorWillMount() {
+      console.log(this.getSqlCompletionProvider())
       languages.registerCompletionItemProvider("sql", this.getSqlCompletionProvider())
     }
 
@@ -516,6 +517,7 @@
         provideCompletionItems: (model, position, context) => {
           const textUntilPosition = model.getValueInRange({startLineNumber: 1, startColumn: 1, endLineNumber: position.lineNumber, endColumn: position.column})
           const range = new monaco.Range(position.lineNumber, position.column, position.lineNumber, position.column)
+          console.log('completion')
           switch (context.triggerCharacter) {
             case '.': return sqlMonacoDotSuggestion(this.connectionType, textUntilPosition, range, this.hintOptions.tables, this.currentQueryAST)
             case ' ': return sqlMonacoSuggestion(this.connectionType, textUntilPosition, range, this.hintOptions.tables, this.currentQueryAST)
@@ -553,6 +555,8 @@
         }
       }
 
+      window.addEventListener("resize", this.updateEditorHeight);
+
       this.$nextTick(() => {
         // @ts-ignore
         this.split = Split(this.splitElements, {
@@ -576,6 +580,7 @@
     }
 
     beforeDestroy() {
+      window.removeEventListener("resize", this.updateEditorHeight);
       if(this.split) {
         this.split.destroy()
       }
